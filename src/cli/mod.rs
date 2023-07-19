@@ -3,13 +3,13 @@ use std::path::PathBuf;
 
 #[derive(Clone, Debug)]
 pub struct Cli {
-    /// Bitbucket repository env
+    /// Bitbucket Repositorysitory env
     pub file: PathBuf,
 }
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
-pub struct RepoVariable {
+pub struct RepositoryVariable {
     key: String,
     value: String,
     secure: Option<bool>,
@@ -18,7 +18,7 @@ pub struct RepoVariable {
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
 #[serde(rename_all = "camelCase")]
-pub struct RepoMetadata {
+pub struct RepositoryMetadata {
     name: String,
     description: Option<String>,
     home_page: Option<String>,
@@ -26,14 +26,14 @@ pub struct RepoMetadata {
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
-pub struct RepoDeployment {
+pub struct RepositoryDeployment {
     name: String,
-    envs: Vec<RepoVariable>,
+    envs: Vec<RepositoryVariable>,
 }
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
-pub struct RepoPipeline {
+pub struct RepositoryPipeline {
     enable: bool,
 }
 
@@ -41,24 +41,24 @@ pub struct RepoPipeline {
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
 #[serde(rename_all = "camelCase")]
-pub struct RepoSpec {
+pub struct RepositorySpec {
     organization: String,
     slug: String,
     private: bool,
     main_branch: Option<String>,
-    deployments: Option<Vec<RepoDeployment>>,
-    pipeline: Option<RepoPipeline>,
-    envs: Option<Vec<RepoVariable>>,
+    deployments: Option<Vec<RepositoryDeployment>>,
+    pipeline: Option<RepositoryPipeline>,
+    envs: Option<Vec<RepositoryVariable>>,
 }
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
 #[serde(rename_all = "camelCase")]
-pub struct Repo {
+pub struct Repository {
     api_version: String,
     source: String,
-    metadata: RepoMetadata,
-    spec: RepoSpec,
+    metadata: RepositoryMetadata,
+    spec: RepositorySpec,
 }
 
 #[cfg(test)]
