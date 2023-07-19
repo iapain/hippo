@@ -8,16 +8,33 @@ It not only creates repo but also allows you to define various properties like C
 Here is a common example for repository manifest.
 
 ```yaml
+apiVersion: hippo.tool/v1alpha1
+kind: Repository
 source: bitbucket
-slug: forlagshuset/edtech-learning-path-service
-variables:
-  - key: MONGODB_URL
-    value: mongodb://127.0.0.1:27017/testdb
-    secure: true
-  - key: CI_IMAGE_URL
-    value: mycoolregistry.com/cool-service
-  - key: CI_DEPLOYMENT_NAME
-    value: deployment/cool-service
+metadata:
+  name: Learning Path
+  description: My cool app
+  homePage: https://myapp.com
+spec:
+  organization: forlagshuset
+  slug: learning-path-service
+  private: true
+  mainBranch: main
+  deployments:
+    - name: Test
+      envs:
+        - key: NODE_ENV
+          value: testing
+  pipeline:
+    enable: true
+  envs:
+    - key: MONGODB_URL
+      value: mongodb://127.0.0.1:27017/testdb
+      secure: true
+    - key: CI_IMAGE_URL
+      value: mycoolregistry.com/cool-service
+    - key: CI_DEPLOYMENT_NAME
+      value: deployment/cool-service
 ```
 
 ### Installation

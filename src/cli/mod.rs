@@ -17,10 +17,48 @@ pub struct RepoVariable {
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
-pub struct Repo {
-    source: String,
+#[serde(rename_all = "camelCase")]
+pub struct RepoMetadata {
+    name: String,
+    description: Option<String>,
+    home_page: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+pub struct RepoDeployment {
+    name: String,
+    envs: Vec<RepoVariable>,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+pub struct RepoPipeline {
+    enable: bool,
+}
+
+
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+#[serde(rename_all = "camelCase")]
+pub struct RepoSpec {
+    organization: String,
     slug: String,
-    variables: Vec<RepoVariable>,
+    private: bool,
+    main_branch: Option<String>,
+    deployments: Option<Vec<RepoDeployment>>,
+    pipeline: Option<RepoPipeline>,
+    envs: Option<Vec<RepoVariable>>,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+#[serde(rename_all = "camelCase")]
+pub struct Repo {
+    api_version: String,
+    source: String,
+    metadata: RepoMetadata,
+    spec: RepoSpec,
 }
 
 #[cfg(test)]
