@@ -10,3 +10,4 @@ edition = "2021"
 bpaf = { version = "0.7", features = ["derive", "autocomplete"] }
 serde = { version = "1.0.164", features = ["derive"] }
 serde_yaml = "0.9.22"
+ureq = "2.7.1"

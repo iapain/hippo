@@ -1,5 +1,7 @@
-use serde::Deserialize;
 use std::path::PathBuf;
+use std::str::FromStr;
+
+use serde::Deserialize;
 
 #[derive(Clone, Debug)]
 pub struct Cli {
@@ -59,6 +61,37 @@ pub struct Repository {
     source: String,
     metadata: RepositoryMetadata,
     spec: RepositorySpec,
+}
+
+#[allow(dead_code)]
+#[derive(Debug, Clone)]
+pub enum Opt {
+    Context {
+        command: Command,
+    },
+    Apply {
+        file: PathBuf
+    },
+}
+
+#[derive(Debug, Clone)]
+pub enum Command {
+    Create,
+    Delete,
+}
+
+impl FromStr for Command {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, String>
+    where
+        Self: Sized,
+    {
+        match s {
+            "create" => Ok(Command::Create),
+            "delete" => Ok(Command::Delete),
+            _ => Err("Expected create|delete".to_string()),
+        }
+    }
 }
 
 #[cfg(test)]
